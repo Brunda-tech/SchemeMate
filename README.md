@@ -82,6 +82,7 @@ Update database.py to read the DB_* variables before using this example configur
 5. Run the application
 python app.py
 Open the local address printed by Flask in your browser (commonly http://127.0.0.1:5000/).
+
 🤖 Gemini Chatbot Setup (Optional)
 The chatbot can work without a Gemini API key by using built-in FAQ responses and database-based scheme suggestions.
 
@@ -91,8 +92,10 @@ To enable Gemini-generated answers:
 3. Optionally set GEMINI_MODEL to a model available to your API key.
 4. Restart the Flask application.
 The chatbot is designed to use matching SchemeMate scheme records as context and should not be treated as an official eligibility decision. Avoid entering Aadhaar numbers, passwords, bank details, or other sensitive personal information. Refer to CHATBOT_SETUP.md for the project's additional chatbot notes.
+
 ✉️ Email Configuration (Optional)
 The contact/complaint email feature requires SMTP settings in .env. For Gmail, use an App Password with two-step verification enabled rather than your normal account password. Keep these credentials private. Reports sent by email should not be assumed to be stored in the application database.
+
 🔐 Security and Privacy
 - Keep .env out of version control.
 - Use a strong, persistent FLASK_SECRET_KEY in deployed environments.
@@ -112,8 +115,10 @@ pip install pytest
 - Add automated tests for authentication, scheme matching, saved schemes, admin access, and chatbot fallback behavior.
 - Improve deployment configuration, database migrations, logging, and monitoring.
 - Add accessibility and multilingual improvements for a wider range of users.
+- 
 ⚠️ Disclaimer
 SchemeMate helps users discover and understand potentially relevant government schemes. It does not guarantee eligibility, provide legal advice, submit applications on behalf of users, or represent any government department. Scheme information can change; users must verify the latest details with the official department or portal.
+
 👩‍💻 Author
 Developed by Brunda-tech.
 If you find the project useful, consider starring the repository!
