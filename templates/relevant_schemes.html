@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Relevant Schemes - SchemeMate</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+
+<body>
+
+<main class="container scheme-results-page">
+
+    <div class="results-heading">
+        <span class="results-eyebrow">SCHEMEMATE • PERSONALIZED DISCOVERY</span>
+        <h1>Relevant Government Schemes</h1>
+
+        <p>
+            Based on the information you provided, these schemes may be relevant to you.
+        </p>
+    </div>
+
+    {% if match_note %}
+        <p class="match-note" role="note">{{ match_note }}</p>
+    {% endif %}
+
+    {% if session.get("user_id") and not scheme_save_available %}
+        <p class="scheme-save-warning" role="status">
+            Saving is temporarily unavailable. The site administrator needs to
+            apply <code>database/schememate.sql</code>.
+        </p>
+    {% endif %}
+
+    {% if schemes %}
+
+        <div class="scheme-grid">
+
+            {% for scheme in schemes %}
+
+                {% set illustration = scheme_illustration(scheme.target_role) %}
+                <article class="scheme-card">
+                    <div class="scheme-card-art">
+                        <img class="scheme-card-image"
+                             src="{{ url_for('static', filename=illustration.filename) }}"
+                             alt="{{ illustration.alt }}"
+                             loading="lazy">
+                        {% include "scheme_save_button.html" %}
+                    </div>
+                    <span class="scheme-role-label">{{ scheme.target_role }} · {{ scheme.state }}</span>
+                    <h2>{{ scheme.scheme_name }}</h2>
+                    <div class="eligibility-status">ℹ️ {{ scheme.status }}</div>
+                    <p>{{ scheme.description }}</p>
+                    <h3>Why am I seeing this scheme?</h3>
+                    <ul class="reason-list">
+                        {% for reason in scheme.reasons %}
+                            <li>✓ {{ reason }}</li>
+                        {% endfor %}
+                    </ul>
+                    <p><strong>Benefit:</strong> {{ scheme.benefit }}</p>
+                    <a href="{{ url_for('scheme_details', scheme_id=scheme.scheme_id) }}">
+                        View Details
+                    </a>
+                </article>
+
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="no-schemes">
+
+            <div class="no-schemes-icon" aria-hidden="true">⌕</div>
+            <span class="results-eyebrow">YOUR MATCH RESULTS</span>
+            <h2>Sorry, no relevant schemes found</h2>
+
+            <p>
+                We couldn't find schemes that match your profile right now.
+                Try reviewing your profile details or check back later for updates.
+            </p>
+
+            <div class="empty-actions">
+                <a class="review-profile-link" href="{{ url_for('roles') }}">Review my profile</a>
+            </div>
+
+        </div>
+
+    {% endif %}
+
+</main>
+
+{% include "chatbot_widget.html" %}
+</body>
+
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Roles - SchemeMate</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="role-container">
+
+        <div class="role-box">
+
+            <h1>What describes you?</h1>
+
+            <p>Select one role that best describes you.</p>
+
+            <form method="POST">
+
+                <div class="role-grid">
+
+                    <label class="role-card">
+                        <input type="radio" name="roles" value="Student" required>
+                        <span>🎓 Student</span>
+                    </label>
+
+                    <label class="role-card">
+                        <input type="radio" name="roles" value="Farmer" required>
+                        <span>🌾 Farmer</span>
+                    </label>
+
+                    <label class="role-card">
+                        <input type="radio" name="roles" value="Job Seeker" required>
+                        <span>💼 Job Seeker</span>
+                    </label>
+
+                    <label class="role-card">
+                        <input type="radio" name="roles" value="Entrepreneur" required>
+                        <span>🚀 Entrepreneur</span>
+                    </label>
+
+                    <label class="role-card">
+                        <input type="radio" name="roles" value="Woman" required>
+                        <span>👩 Woman</span>
+                    </label>
+
+                    <label class="role-card">
+                        <input type="radio" name="roles" value="Senior Citizen" required>
+                        <span>👴 Senior Citizen</span>
+                    </label>
+
+                    <label class="role-card">
+                        <input type="radio" name="roles" value="Person with Disability" required>
+                        <span>♿ Person with Disability</span>
+                    </label>
+
+                    <label class="role-card">
+                        <input type="radio" name="roles" value="Other" required>
+                        <span>✨ Other</span>
+                    </label>
+
+                </div>
+
+                <button type="submit">Continue</button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+{% include "chatbot_widget.html" %}
+</body>
+</html>

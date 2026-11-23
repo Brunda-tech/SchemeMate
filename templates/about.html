@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About - SchemeMate</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="page-container">
+
+        <h1>About SchemeMate</h1>
+
+        <p>
+            SchemeMate is a personalized government scheme discovery
+            platform designed to help people find schemes and benefits
+            that may be relevant to their situation.
+        </p>
+
+        <h2>Why SchemeMate?</h2>
+
+        <p>
+            Many government schemes are available for students, farmers,
+            job seekers, entrepreneurs and other groups, but finding the
+            right scheme can be difficult.
+        </p>
+
+        <p>
+            SchemeMate collects basic information about the user and
+            uses eligibility rules to identify potentially relevant
+            schemes.
+        </p>
+
+        <h2>How it works</h2>
+
+        <p>
+            Register → Select your roles → Provide your details →
+            Discover relevant schemes.
+        </p>
+
+        <a href="{{ url_for('home') }}">← Back to Home</a>
+
+    </div>
+
+{% include "chatbot_widget.html" %}
+</body>
+
+</html>

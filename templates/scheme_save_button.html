@@ -1,0 +1,29 @@
+{% set save_label = "Remove from saved schemes" if scheme.is_saved else "Save this scheme" %}
+{% if session.get("user_id") and scheme_save_available %}
+    <form class="scheme-save-form-card" method="post"
+          action="{{ url_for('unsave_scheme' if scheme.is_saved else 'save_scheme', scheme_id=scheme.scheme_id) }}">
+        <input type="hidden" name="csrf_token" value="{{ saved_scheme_csrf_token() }}">
+        <input type="hidden" name="return_to" value="{{ request.path }}">
+        <button class="scheme-save-icon{% if scheme.is_saved %} is-saved{% endif %}"
+                type="submit" aria-label="{{ save_label }}" title="{{ save_label }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M6 3.75h12a1 1 0 0 1 1 1v15l-7-4.5-7 4.5v-15a1 1 0 0 1 1-1Z"></path>
+            </svg>
+        </button>
+    </form>
+{% elif session.get("user_id") %}
+    <button class="scheme-save-icon is-disabled" type="button" disabled
+            aria-label="Saving is unavailable until the database is updated"
+            title="Saving is temporarily unavailable">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 3.75h12a1 1 0 0 1 1 1v15l-7-4.5-7 4.5v-15a1 1 0 0 1 1-1Z"></path>
+        </svg>
+    </button>
+{% else %}
+    <a class="scheme-save-icon" href="{{ url_for('login') }}"
+       aria-label="Sign in to save this scheme" title="Sign in to save">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 3.75h12a1 1 0 0 1 1 1v15l-7-4.5-7 4.5v-15a1 1 0 0 1 1-1Z"></path>
+        </svg>
+    </a>
+{% endif %}

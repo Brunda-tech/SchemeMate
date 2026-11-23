@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Seeker Profile - SchemeMate</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="profile-page category-profile-page">
+    <main class="auth-container">
+        <section class="auth-box profile-box">
+            <h1>💼 Job Seeker Profile</h1>
+            <p>Tell us about your career goals to find relevant training and employment schemes.</p>
+
+            {% if message %}<p class="profile-message" role="status">{{ message }}</p>{% endif %}
+
+            <form class="profile-form" action="{{ url_for('jobseeker_profile') }}" method="POST">
+                <div class="profile-field">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age" min="18" max="100" required>
+                </div>
+                <div class="profile-field">
+                    <label for="state">State</label>
+                    <input type="text" id="state" name="state" autocomplete="address-level1"
+                           placeholder="e.g. Karnataka" required>
+                </div>
+                <div class="profile-field">
+                    <label for="district">District</label>
+                    <input type="text" id="district" name="district" autocomplete="address-level2"
+                           placeholder="e.g. Bengaluru Urban" required>
+                </div>
+                <div class="profile-field">
+                    <label for="qualification">Highest Qualification</label>
+                    <select id="qualification" name="qualification" required>
+                        <option value="">Select qualification</option>
+                        <option value="SSLC">SSLC</option>
+                        <option value="PUC">PUC / 12th</option>
+                        <option value="Diploma">Diploma</option>
+                        <option value="Graduate">Graduate</option>
+                        <option value="Postgraduate">Postgraduate</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="profile-field">
+                    <label for="employment_status">Employment Status</label>
+                    <select id="employment_status" name="employment_status" required>
+                        <option value="">Select status</option>
+                        <option value="Unemployed">Unemployed</option>
+                        <option value="Employed">Employed</option>
+                        <option value="Self-employed">Self-employed</option>
+                    </select>
+                </div>
+                <div class="profile-field">
+                    <label for="experience">Work Experience</label>
+                    <select id="experience" name="experience" required>
+                        <option value="">Select experience</option>
+                        <option value="Fresher">Fresher</option>
+                        <option value="Less than 1 year">Less than 1 year</option>
+                        <option value="1-3 years">1-3 years</option>
+                        <option value="3+ years">3+ years</option>
+                    </select>
+                </div>
+                <div class="profile-field">
+                    <label for="job_type">Preferred Job Type</label>
+                    <select id="job_type" name="job_type" required>
+                        <option value="">Select preference</option>
+                        <option value="Government">Government</option>
+                        <option value="Private">Private</option>
+                        <option value="Any">Any suitable job</option>
+                    </select>
+                </div>
+                <div class="profile-field profile-field-full">
+                    <label for="skills">Skills and Interests</label>
+                    <textarea id="skills" name="skills" rows="3"
+                              placeholder="e.g. Python, communication, accounting" required></textarea>
+                </div>
+                <button type="submit">Find Relevant Schemes</button>
+            </form>
+        </section>
+    </main>
+{% include "chatbot_widget.html" %}
+</body>
+</html>

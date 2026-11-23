@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Government Schemes - SchemeMate</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <main class="container all-schemes-page">
+        <a class="account-primary-link all-schemes-home"
+           href="{{ url_for('home') }}">← Back to Home</a>
+
+        <div class="results-heading">
+            <span class="results-eyebrow">SCHEMEMATE SCHEME DIRECTORY</span>
+            <h1>All Government Schemes</h1>
+            <p>
+                Browse every scheme in SchemeMate, across all profile types.
+                These listings are informational; check the official source for
+                current eligibility and application details.
+            </p>
+        </div>
+
+        {% if session.get("user_id") and not scheme_save_available %}
+            <p class="scheme-save-warning" role="status">
+                Saving is temporarily unavailable. The site administrator needs to
+                apply <code>database/schememate.sql</code>.
+            </p>
+        {% endif %}
+
+        {% if schemes %}
+            <div class="scheme-grid">
+                {% for scheme in schemes %}
+                    {% set illustration = scheme_illustration(scheme.target_role) %}
+                    <article class="scheme-card all-scheme-card">
+                        <div class="scheme-card-art">
+                            <img class="scheme-card-image"
+                                 src="{{ url_for('static', filename=illustration.filename) }}"
+                                 alt="{{ illustration.alt }}"
+                                 loading="lazy">
+                            {% include "scheme_save_button.html" %}
+                        </div>
+                        <span class="scheme-role-label">{{ scheme.target_role }} · {{ scheme.state }}</span>
+                        <h2>{{ scheme.scheme_name }}</h2>
+                        <p>{{ scheme.description }}</p>
+                        <p><strong>Benefit:</strong> {{ scheme.benefit }}</p>
+                        <a href="{{ url_for('scheme_details', scheme_id=scheme.scheme_id, source='all') }}">
+                            View Details
+                        </a>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <section class="no-schemes">
+                <h2>No schemes have been added yet</h2>
+                <p>Please check back after schemes are added to SchemeMate.</p>
+            </section>
+        {% endif %}
+    </main>
+    {% include "chatbot_widget.html" %}
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Contact - SchemeMate</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+    <div class="page-container">
+
+        <h1>Contact Us</h1>
+
+        <p>
+            Report a complaint or an issue with SchemeMate. If automatic email
+            delivery is unavailable, you can still open an email with your report ready.
+        </p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+                <p class="complaint-success" role="status">{{ message }}</p>
+            {% endfor %}
+        {% endwith %}
+
+        {% if error %}
+            <p class="complaint-error" role="alert">{{ error }}</p>
+        {% endif %}
+
+        {% if fallback_email_url %}
+            <a class="complaint-email-fallback" href="{{ fallback_email_url }}">
+                Open email to send your complaint
+            </a>
+        {% endif %}
+
+        <form class="complaint-form" action="{{ url_for('contact') }}" method="post">
+            <input type="hidden" name="csrf_token" value="{{ contact_csrf_token() }}">
+
+            <label for="complaint-name">Name</label>
+            <input id="complaint-name" name="name" type="text" maxlength="120"
+                   autocomplete="name" value="{{ form_data.get('name', '') }}" required>
+
+            <label for="complaint-email">Email address</label>
+            <input id="complaint-email" name="email" type="email" maxlength="254"
+                   autocomplete="email" value="{{ form_data.get('email', '') }}" required>
+
+            <label for="complaint-address">Address</label>
+            <textarea id="complaint-address" name="address" rows="3" maxlength="1000"
+                      autocomplete="street-address" required>{{ form_data.get('address', '') }}</textarea>
+
+            <label for="complaint-issue">Issue or complaint</label>
+            <textarea id="complaint-issue" name="issue" rows="6" maxlength="5000"
+                      placeholder="Describe what happened and where in SchemeMate you saw it."
+                      required>{{ form_data.get('issue', '') }}</textarea>
+
+            <p class="complaint-privacy">
+                Your details are not stored in SchemeMate. When sent, your report
+                goes to brundagr17@gmail.com. Do not include passwords, Aadhaar
+                numbers, or bank details.
+            </p>
+
+            <label class="complaint-consent">
+                <input type="checkbox" name="consent" value="yes" required>
+                I agree to send these details by email for complaint handling.
+            </label>
+
+            <button type="submit">Send complaint</button>
+        </form>
+
+        <div class="contact-info">
+            <h2>Get in Touch</h2>
+            <p><strong>Email:</strong> brundagr17@gmail.com</p>
+            <p><strong>Location:</strong> Bengaluru, Karnataka, India</p>
+        </div>
+
+        <a href="{{ url_for('home') }}">← Back to Home</a>
+
+    </div>
+
+{% include "chatbot_widget.html" %}
+</body>
+
+</html>

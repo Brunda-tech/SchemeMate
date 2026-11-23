@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SchemeMate</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="{{ url_for('static', filename='css/js/script.js') }}" defer></script>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo">SchemeMate</div>
+
+        <nav>
+            <a href="{{ url_for('home') }}">Home</a>
+            <a href="{{ url_for('about') }}" class="about-btn">About</a>
+            <a href="{{ url_for('contact') }}" class="contact-btn">Contact</a>
+            <a href="{{ url_for('all_schemes') }}">All Schemes</a>
+            {% if show_admin_shortcut %}
+                <a href="{{ url_for('admin_schemes') }}">Admin</a>
+            {% endif %}
+            <a href="{{ url_for('login') }}" class="login-btn">Login</a>
+        </nav>
+    </header>
+
+
+    <main class="hero">
+
+        <div class="hero-content">
+
+            <h1>
+                Discover the schemes
+                <br>
+                meant for <span>you.</span>
+            </h1>
+
+            <p>
+                SchemeMate helps you find government schemes
+                and benefits based on your needs, eligibility
+                and circumstances.
+            </p>
+
+            <div class="buttons">
+                <a href="/register" class="primary-btn">
+                    Get Started →
+                </a>
+
+                <a href="{{ url_for('all_schemes') }}" class="secondary-btn">
+                    Browse all schemes
+                </a>
+
+                <a href="#how-it-works" class="secondary-btn">
+                    How it works
+                </a>
+            </div>
+
+        </div>
+
+
+        <div class="hero-card">
+
+            <div class="icon">🎯</div>
+
+            <h2>Find what you're eligible for</h2>
+
+            <p>
+                Tell us a little about yourself and
+                we'll help you discover relevant schemes.
+            </p>
+
+            <div class="categories">
+                <span>🎓 Students</span>
+                <span>🌾 Farmers</span>
+                <span>💼 Job Seekers</span>
+                <span>🏪 Entrepreneurs</span>
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <section id="how-it-works" class="how-it-works">
+
+        <h2>How SchemeMate Works</h2>
+
+        <div class="steps">
+
+            <div class="step">
+                <div>01</div>
+                <h3>Tell us about yourself</h3>
+                <p>Select the categories that describe you.</p>
+            </div>
+
+            <div class="step">
+                <div>02</div>
+                <h3>Build your profile</h3>
+                <p>Provide only the information needed to check eligibility.</p>
+            </div>
+
+            <div class="step">
+                <div>03</div>
+                <h3>Discover schemes</h3>
+                <p>Get schemes that may match your profile.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+{% include "chatbot_widget.html" %}
+</body>
+</html>

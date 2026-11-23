@@ -1,0 +1,17 @@
+{% if session.get("user_id") %}
+    <details class="account-menu">
+        <summary class="account-menu-button" aria-label="Open account menu">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 12a4.25 4.25 0 1 0 0-8.5 4.25 4.25 0 0 0 0 8.5Z"></path>
+                <path d="M4.5 21a7.5 7.5 0 0 1 15 0"></path>
+            </svg>
+        </summary>
+        <div class="account-menu-panel">
+            <span class="account-menu-label">Signed in as</span>
+            <strong>{{ session.get("user_name") or "SchemeMate account" }}</strong>
+            <p>{{ session.get("user_email", "") }}</p>
+            <a href="{{ url_for('account') }}">My profile</a>
+            <a href="{{ url_for('saved_schemes') }}">Saved schemes</a>
+        </div>
+    </details>
+{% endif %}

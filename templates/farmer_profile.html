@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Farmer Profile - SchemeMate</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="profile-page">
+
+<div class="auth-container">
+
+    <div class="auth-box">
+
+        <h1>🌾 Farmer Profile</h1>
+
+        <p>
+            Tell us about your farming background
+            to find relevant government schemes.
+        </p>
+
+        <form method="POST">
+
+            <!-- Age -->
+            <label for="age">Age</label>
+
+            <input
+                type="number"
+                id="age"
+                name="age"
+                min="18"
+                max="100"
+                placeholder="Enter your age"
+                required
+            >
+
+
+            <!-- State -->
+            <label for="state">State</label>
+
+            <select id="state" name="state" required>
+
+                <option value="">Select your state</option>
+
+                <option value="Karnataka">Karnataka</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Other">Other</option>
+
+            </select>
+
+
+            <!-- District -->
+            <label for="district">District</label>
+
+            <input
+                type="text"
+                id="district"
+                name="district"
+                placeholder="Example: Bengaluru"
+                required
+            >
+
+
+            <!-- Land Ownership -->
+            <label for="land_ownership">Land Ownership</label>
+
+            <select
+                id="land_ownership"
+                name="land_ownership"
+                required
+            >
+
+                <option value="">Select</option>
+
+                <option value="Owned">Owned</option>
+                <option value="Leased">Leased</option>
+                <option value="Both">Owned and Leased</option>
+
+            </select>
+
+
+            <!-- Land Size -->
+            <label for="land_size">
+                Land Size (in acres)
+            </label>
+
+            <input
+                type="number"
+                id="land_size"
+                name="land_size"
+                min="0"
+                step="0.01"
+                placeholder="Example: 2.5"
+                required
+            >
+
+
+            <!-- Farming Type -->
+            <label for="farming_type">Type of Farming</label>
+
+            <select
+                id="farming_type"
+                name="farming_type"
+                required
+            >
+
+                <option value="">Select farming type</option>
+
+                <option value="Crop Farming">
+                    Crop Farming
+                </option>
+
+                <option value="Horticulture">
+                    Horticulture
+                </option>
+
+                <option value="Dairy Farming">
+                    Dairy Farming
+                </option>
+
+                <option value="Poultry Farming">
+                    Poultry Farming
+                </option>
+
+                <option value="Mixed Farming">
+                    Mixed Farming
+                </option>
+
+                <option value="Other">
+                    Other
+                </option>
+
+            </select>
+
+
+            <!-- Crop -->
+            <label for="crop_grown">Main Crop / Produce</label>
+
+            <input
+                type="text"
+                id="crop_grown"
+                name="crop_grown"
+                placeholder="Example: Rice"
+                required
+            >
+
+
+            <!-- Income -->
+            <label for="annual_income">
+                Annual Family Income (₹)
+            </label>
+
+            <input
+                type="number"
+                id="annual_income"
+                name="annual_income"
+                min="0"
+                placeholder="Example: 150000"
+                required
+            >
+
+
+            <!-- Category -->
+            <label for="category">Category</label>
+
+            <select
+                id="category"
+                name="category"
+                required
+            >
+
+                <option value="">Select category</option>
+
+                <option value="General">General</option>
+                <option value="OBC">OBC</option>
+                <option value="SC">SC</option>
+                <option value="ST">ST</option>
+                <option value="EWS">EWS</option>
+                <option value="Other">Other</option>
+
+            </select>
+
+
+            <!-- Irrigation -->
+            <label for="irrigation">
+                Irrigation Availability
+            </label>
+
+            <select
+                id="irrigation"
+                name="irrigation"
+                required
+            >
+
+                <option value="">Select</option>
+
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                <option value="Partial">Partially Available</option>
+
+            </select>
+
+
+            <button type="submit">
+                Save & Continue
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% include "chatbot_widget.html" %}
+</body>
+</html>

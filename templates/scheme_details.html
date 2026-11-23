@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{{ scheme.scheme_name }} - SchemeMate</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body class="scheme-details-page">
+    <main class="container scheme-details">
+        <a class="scheme-back" href="{{ return_url }}">
+            ← Back to {% if request.args.get("source") == "all" %}All Schemes{% elif request.args.get("source") == "saved" %}Saved Schemes{% else %}Relevant Schemes{% endif %}
+        </a>
+
+        <header class="scheme-detail-heading">
+            <span class="results-eyebrow">{{ scheme.target_role }} SUPPORT</span>
+            <h1>{{ scheme.scheme_name }}</h1>
+            <p>{{ scheme.description }}</p>
+        </header>
+
+        {% set illustration = scheme_illustration(scheme.target_role) %}
+        <img class="scheme-detail-image"
+             src="{{ url_for('static', filename=illustration.filename) }}"
+             alt="{{ illustration.alt }}"
+             loading="lazy">
+
+        {% if session.get("user_id") and save_available %}
+            <form class="scheme-save-form"
+                  method="post"
+                  action="{{ url_for(
+                      'unsave_scheme' if is_saved else 'save_scheme',
+                      scheme_id=scheme.scheme_id
+                  ) }}">
+                <input type="hidden" name="csrf_token" value="{{ saved_scheme_csrf_token() }}">
+                <button class="scheme-save-button" type="submit">
+                    {{ "Remove from saved schemes" if is_saved else "Save this scheme" }}
+                </button>
+            </form>
+        {% elif not session.get("user_id") %}
+            <p class="scheme-save-note">
+                <a href="{{ url_for('login') }}">Sign in</a> to save this scheme.
+            </p>
+        {% else %}
+            <p class="scheme-save-note" role="status">
+                Scheme details are available, but saving is temporarily unavailable.
+                Ask the site administrator to apply the database updates in
+                <code>database/schememate.sql</code>.
+            </p>
+        {% endif %}
+
+        <section class="scheme-facts" aria-label="Scheme eligibility summary">
+            <div class="scheme-fact">
+                <span>For</span>
+                <strong>{{ scheme.target_role }}</strong>
+            </div>
+            <div class="scheme-fact">
+                <span>Category</span>
+                <strong>{{ scheme.category or "All" }}</strong>
+            </div>
+            <div class="scheme-fact">
+                <span>Education</span>
+                <strong>{{ scheme.education_level or "All levels" }}</strong>
+            </div>
+            <div class="scheme-fact">
+                <span>Income limit</span>
+                <strong>
+                    {% if scheme.max_income %}
+                        ₹{{ scheme.max_income }}
+                    {% else %}
+                        Not specified
+                    {% endif %}
+                </strong>
+            </div>
+        </section>
+
+        <section class="scheme-detail-grid">
+            <article class="scheme-detail-section">
+                <span class="detail-number">01</span>
+                <h2>Benefits</h2>
+                <p>{{ scheme.benefit }}</p>
+            </article>
+            <article class="scheme-detail-section">
+                <span class="detail-number">02</span>
+                <h2>Documents required</h2>
+                <p>{{ scheme.documents }}</p>
+            </article>
+            <article class="scheme-detail-section">
+                <span class="detail-number">03</span>
+                <h2>How to apply</h2>
+                <p>{{ scheme.application_process }}</p>
+            </article>
+        </section>
+
+        <footer class="scheme-detail-footer">
+            <div>
+                <h2>Ready to learn more?</h2>
+                <p>Visit the official scheme portal for current eligibility and application details.</p>
+            </div>
+            <a class="official-scheme-link" href="{{ scheme.official_link }}"
+               target="_blank" rel="noopener noreferrer">
+                {% if 'myscheme.gov.in' in scheme.official_link %}
+                    View scheme on myScheme
+                {% else %}
+                    Visit Official Scheme Website
+                {% endif %}
+                <span aria-hidden="true">↗</span>
+            </a>
+        </footer>
+    </main>
+
+{% include "chatbot_widget.html" %}
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saved Schemes - SchemeMate</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="saved-schemes-page">
+    <main class="saved-schemes-container">
+        <span class="results-eyebrow">YOUR SCHEMEMATE ACCOUNT</span>
+        <h1>Saved schemes</h1>
+        <p>These schemes are saved to your account so you can find them again.</p>
+
+        {% if schemes %}
+            <div class="saved-scheme-list">
+                {% for scheme in schemes %}
+                    {% set illustration = scheme_illustration(scheme.target_role) %}
+                    <article class="saved-scheme-card">
+                        <img class="saved-scheme-image"
+                             src="{{ url_for('static', filename=illustration.filename) }}"
+                             alt="{{ illustration.alt }}"
+                             loading="lazy">
+                        <div>
+                            <span class="saved-scheme-role">{{ scheme.target_role }} · {{ scheme.state }}</span>
+                            <h2>{{ scheme.scheme_name }}</h2>
+                            <p>{{ scheme.description }}</p>
+                        </div>
+                        <div class="saved-scheme-actions">
+                            <a class="account-primary-link"
+                               href="{{ url_for('scheme_details', scheme_id=scheme.scheme_id, source='saved') }}">
+                                View details
+                            </a>
+                            <form method="post"
+                                  action="{{ url_for('unsave_scheme', scheme_id=scheme.scheme_id) }}">
+                                <input type="hidden" name="csrf_token" value="{{ saved_scheme_csrf_token() }}">
+                                <button class="saved-scheme-remove" type="submit">Remove</button>
+                            </form>
+                        </div>
+                    </article>
+                {% endfor %}
+            </div>
+        {% else %}
+            <section class="saved-schemes-empty">
+                <h2>No saved schemes yet</h2>
+                <p>Open any scheme’s details and select “Save this scheme” to keep it here.</p>
+                <a class="account-primary-link" href="{{ url_for('home') }}">Explore SchemeMate</a>
+            </section>
+        {% endif %}
+
+        <a class="account-back-link" href="{{ url_for('account') }}">Back to my profile</a>
+    </main>
+    {% include "chatbot_widget.html" %}
+</body>
+</html>

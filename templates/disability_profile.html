@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disability Support Profile - SchemeMate</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="profile-page category-profile-page">
+    <main class="auth-container">
+        <section class="auth-box profile-box">
+            <h1>♿ Disability Support Profile</h1>
+            <p>Share relevant details to find schemes and support services.</p>
+
+            {% if message %}<p class="profile-message" role="status">{{ message }}</p>{% endif %}
+
+            <form class="profile-form" method="POST">
+                <div class="profile-field">
+                    <label for="age">Age</label>
+                    <input type="number" id="age" name="age" min="1" max="120" required>
+                </div>
+                <div class="profile-field">
+                    <label for="state">State</label>
+                    <input type="text" id="state" name="state" autocomplete="address-level1" required>
+                </div>
+                <div class="profile-field">
+                    <label for="district">District</label>
+                    <input type="text" id="district" name="district" autocomplete="address-level2" required>
+                </div>
+                <div class="profile-field">
+                    <label for="disability_type">Disability Type</label>
+                    <select id="disability_type" name="disability_type" required>
+                        <option value="">Select disability type</option>
+                        <option value="Locomotor">Locomotor</option>
+                        <option value="Visual">Visual</option>
+                        <option value="Hearing">Hearing</option>
+                        <option value="Speech and language">Speech and language</option>
+                        <option value="Intellectual">Intellectual</option>
+                        <option value="Multiple disabilities">Multiple disabilities</option>
+                        <option value="Other">Other</option>
+                        <option value="Prefer not to say">Prefer not to say</option>
+                    </select>
+                </div>
+                <div class="profile-field">
+                    <label for="disability_percentage">Disability Percentage (if certified)</label>
+                    <input type="number" id="disability_percentage" name="disability_percentage"
+                           min="0" max="100" step="1">
+                </div>
+                <div class="profile-field">
+                    <label for="certificate_status">Disability Certificate Status</label>
+                    <select id="certificate_status" name="certificate_status" required>
+                        <option value="">Select status</option>
+                        <option value="Have certificate">I have a certificate</option>
+                        <option value="Applied">Application in progress</option>
+                        <option value="Not applied">Not applied</option>
+                        <option value="Prefer not to say">Prefer not to say</option>
+                    </select>
+                </div>
+                <div class="profile-field">
+                    <label for="education_level">Education Level</label>
+                    <select id="education_level" name="education_level" required>
+                        <option value="">Select education level</option>
+                        <option value="No formal education">No formal education</option>
+                        <option value="Primary">Primary</option>
+                        <option value="Secondary">Secondary</option>
+                        <option value="PUC">PUC / 12th</option>
+                        <option value="Diploma">Diploma</option>
+                        <option value="Undergraduate">Undergraduate</option>
+                        <option value="Postgraduate">Postgraduate</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="profile-field">
+                    <label for="annual_income">Annual Family Income (₹)</label>
+                    <input type="number" id="annual_income" name="annual_income" min="0" step="1" required>
+                </div>
+                <button type="submit">Continue</button>
+            </form>
+        </section>
+    </main>
+{% include "chatbot_widget.html" %}
+</body>
+</html>

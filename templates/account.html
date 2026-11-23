@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - SchemeMate</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="account-page">
+    <main class="account-container">
+        <span class="results-eyebrow">YOUR SCHEMEMATE ACCOUNT</span>
+        <h1>My profile</h1>
+
+        <section class="account-details" aria-label="Account details">
+            <h2>Account details</h2>
+            <dl>
+                <div>
+                    <dt>Name</dt>
+                    <dd>{{ account.name }}</dd>
+                </div>
+                <div>
+                    <dt>Email</dt>
+                    <dd>{{ account.email }}</dd>
+                </div>
+                <div>
+                    <dt>Profile type</dt>
+                    <dd>{{ roles|join(", ") if roles else "Not selected" }}</dd>
+                </div>
+            </dl>
+        </section>
+
+        <section class="account-saved-summary">
+            <div>
+                <h2>Saved schemes</h2>
+                {% if saved_schemes_available %}
+                    <p>{{ saved_count }} scheme{{ "" if saved_count == 1 else "s" }} saved to your account.</p>
+                {% else %}
+                    <p>Saved schemes are temporarily unavailable. Please contact the site administrator.</p>
+                {% endif %}
+            </div>
+            {% if saved_schemes_available %}
+                <a class="account-primary-link" href="{{ url_for('saved_schemes') }}">View saved schemes</a>
+            {% endif %}
+        </section>
+
+        <a class="account-back-link" href="{{ url_for('home') }}">Back to SchemeMate</a>
+    </main>
+    {% include "chatbot_widget.html" %}
+</body>
+</html>

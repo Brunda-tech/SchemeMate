@@ -1,0 +1,54 @@
+{% include "account_menu.html" %}
+
+<button
+    class="chatbot-launcher"
+    id="chatbot-launcher"
+    type="button"
+    aria-label="Open SchemeMate assistant"
+    aria-controls="chatbot-panel"
+    aria-expanded="false"
+>
+    <span aria-hidden="true">✦</span>
+    <span>Ask SchemeMate</span>
+</button>
+
+<section class="chatbot-panel" id="chatbot-panel" aria-label="SchemeMate assistant" hidden>
+    <header class="chatbot-header">
+        <div>
+            <h2>SchemeMate Assistant</h2>
+            <p>Ask about schemes and where to apply</p>
+        </div>
+        <button class="chatbot-close" id="chatbot-close" type="button" aria-label="Close assistant">×</button>
+    </header>
+
+    <div class="chatbot-messages" id="chatbot-messages" aria-live="polite" aria-relevant="additions">
+        <div class="chatbot-message chatbot-message-assistant">
+            Hi! I can help you explore schemes in SchemeMate. Try asking “What schemes are available for students?”
+        </div>
+        <div class="chatbot-faqs" role="group" aria-label="Common SchemeMate questions">
+            <span>Common questions</span>
+            {% for question in chatbot_faq_questions %}
+                <button type="button">{{ question }}</button>
+            {% endfor %}
+        </div>
+    </div>
+
+    <p class="chatbot-privacy">
+        Don’t share sensitive personal details. If Gemini is configured, your messages are sent to Google to generate replies; chats aren’t saved by SchemeMate.
+    </p>
+
+    <form class="chatbot-form" id="chatbot-form">
+        <label class="chatbot-sr-only" for="chatbot-input">Your question</label>
+        <textarea
+            id="chatbot-input"
+            name="message"
+            rows="2"
+            maxlength="1200"
+            placeholder="Ask about a scheme..."
+            required
+        ></textarea>
+        <button id="chatbot-send" type="submit">Send</button>
+    </form>
+</section>
+
+<script src="{{ url_for('static', filename='css/js/chatbot.js') }}" defer></script>
